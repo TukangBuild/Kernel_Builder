@@ -78,7 +78,19 @@ jobs:
           remove-swapfile: 'true'        # Frees ~4 GB
           remove-cached-tools: 'false'   # Avoid unless confirmed safe
           verbose: 'true'                # Enable detailed logging
-          
+
+      - name: Disk space report after modification
+        shell: bash
+        run: |
+          echo "Memory and swap:"
+          sudo free -h
+          echo
+          sudo swapon --show
+          echo
+  
+          echo "Available storage:"
+          sudo df -h
+        
       # - name: Maximize Build Space
       #   uses: easimon/maximize-build-space@master
       #   with:
@@ -95,10 +107,13 @@ jobs:
 
       #     # Remove dotnet
       #     sudo rm -rf /usr/share/dotnet || true
+          
       #     # Remove haskell
       #     sudo rm -rf /opt/ghc || true
+          
       #     # Remove Android SDK
       #     sudo rm -rf /usr/local/lib/android || true
+          
       #     # Remove CodeQL
       #     sudo rm -rf /opt/hostedtoolcache/CodeQL || true
 
