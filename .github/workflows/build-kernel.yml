@@ -76,6 +76,19 @@ jobs:
       #     remove-haskell: 'true'
       #     remove-codeql: 'true'
 
+      - name: Disk space report before modification
+        shell: bash
+        run: |
+          echo "Memory and swap:"
+          sudo free -h
+          echo
+          sudo swapon --show
+          echo
+  
+          echo "Available storage:"
+          sudo df -h
+          echo
+        
       - name: Maximize Build Space
         run: |
           echo "Removing unused SDKs and tools..."
@@ -116,7 +129,19 @@ jobs:
           sudo swapon /swapfile
 
           echo "Build space and swap maximized."
-          
+
+      - name: Disk space report after modification
+        shell: bash
+        run: |
+          echo "Memory and swap:"
+          sudo free -h
+          echo
+          sudo swapon --show
+          echo
+  
+          echo "Available storage:"
+          sudo df -h
+        
       - name: Install Dependencies
         run: |
           sudo apt-mark hold firefox
